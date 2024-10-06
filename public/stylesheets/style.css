@@ -1,0 +1,99 @@
+html {
+	line-height: 1.25;
+	-webkit-text-size-adjust: 100%;
+	}
+
+:root {
+	font-family: Inter, sans-serif;
+	font-feature-settings: 'liga' 1, 'calt' 1;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	}
+
+@supports (font-variation-settings: normal) {
+	:root {
+		font-family: InterVariable, sans-serif;
+		}
+	}
+
+/* For browsers that support clamp and container queries */
+@supports (font-size: clamp(1rem, 1cqi, 1rem)) {
+	:root {
+		--font-size-sm: clamp(0.7rem, 0.2cqi + 0.6rem, 0.8rem);
+		--font-size-base: clamp(0.8rem, 0.3cqi + 0.8rem, 1rem);
+		--font-size-lg: clamp(1rem, 0.6cqi + 0.9rem, 1.3rem);
+		--font-size-xl: clamp(1.3rem, 1cqi + 1.1rem, 1.8rem);
+		--font-size-2xl: clamp(1.6rem, 1.5cqi + 1.3rem, 2.4rem);
+		--font-size-3xl: clamp(2rem, 2.3cqi + 1.5rem, 3.2rem);
+		--font-size-4xl: clamp(2.5rem, 3.4cqi + 1.8rem, 4.2rem);
+		--font-size-5xl: clamp(3.2rem, 5cqi + 2.1rem, 5.6rem);
+		--font-size-6xl: clamp(4rem, 7.2cqi + 2.4rem, 7.5rem);
+		}
+	}
+
+/* For browsers that don't support clamp or container queries */
+@supports not (font-size: clamp(1rem, 1cqi, 1rem)) {
+	:root {
+		--font-size-sm: 0.7rem;
+		--font-size-base: 0.8rem;
+		--font-size-lg: 1rem;
+		--font-size-xl: 1.3rem;
+		--font-size-2xl: 1.6rem;
+		--font-size-3xl: 2rem;
+		--font-size-4xl: 2.5rem;
+		--font-size-5xl: 3.2rem;
+		--font-size-6xl: 4rem;
+		}
+	
+	@media screen and (min-width: 1280px) {
+		:root {
+			--font-size-sm: 0.8rem;
+			--font-size-base: 1rem;
+			--font-size-lg: 1.3rem;
+			--font-size-xl: 1.8rem;
+			--font-size-2xl: 2.4rem;
+			--font-size-3xl: 3.2rem;
+			--font-size-4xl: 4.2rem;
+			--font-size-5xl: 5.6rem;
+			--font-size-6xl: 7.5rem;
+			}
+		}
+	}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	}
+
+body {
+	overflow-x: hidden;
+	}
+
+[hidden] {
+	display: none;
+	}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+	}
+
+p {
+	text-wrap: pretty;
+	}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+	}

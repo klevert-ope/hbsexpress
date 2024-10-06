@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+import debugLib from "debug";
+import http from "http";
+import app from "../app.js";
+
+const debug = debugLib("hbsexpress:server");
+
+// Normalize the port and set up the host
+const port = normalizePort(process.env.PORT || "3000");
+const host = "0.0.0.0"; // Bind to all network interfaces
+app.set("port", port);
+
+// Create the HTTP server
+const server = http.createServer(app);
+
+// Start the server and bind to the host and port
+server.listen(port, host);
+server.on("error", onError);
+server.on("listening", onListening);
+
+// Normalize port function: returns valid port or false
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) return val; // named pipe
+  if (port >= 0) return port; // valid port number
+  return false;
+}
+
+// Handle server errors
+function onError(error) {
+  if (error.syscall !== "listen") throw error;
+
+  const bind = getBindString();
+  switch (error.code) {
+    case "EACCES":
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+// Log that the server is listening
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+}
+
+// Helper function to get binding string
+function getBindString() {
+  return typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
+}
+
+// Graceful shutdown on SIGINT (Ctrl+C)
+process.on("SIGINT", () => {
+  console.log("Received SIGINT. Shutting down gracefully...");
+
+  // Close server and exit process when done
+  server.close(() => {
+    console.log("Closed out remaining connections.");
+    process.exit(0);
+  });
+
+  // Force close server if not done within a certain time (e.g., 10 seconds)
+  setTimeout(() => {
+    console.error(
+      "Could not close connections in time, forcefully shutting down",
+    );
+    process.exit(1);
+  }, 10000); // Adjust the timeout as needed
+});
