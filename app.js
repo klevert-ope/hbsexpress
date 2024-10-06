@@ -41,6 +41,9 @@ app.use(express.static(path.join(process.cwd(), "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/htmx-test", function (req, res, next) {
+  res.send("<p>HTMX loaded this content!</p>");
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

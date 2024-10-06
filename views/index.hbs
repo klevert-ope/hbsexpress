@@ -1,2 +1,10 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div id="result">
+  <p>Click the button to load content via HTMX!</p>
+</div>
+
+<button hx-get="/htmx-test" hx-target="#result" hx-swap="innerHTML">
+  Load HTMX Content
+</button>
